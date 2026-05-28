@@ -193,9 +193,11 @@ class LLM:
             self.max_tokens = llm_config.max_tokens
             self.temperature = llm_config.temperature
             self.api_type = llm_config.api_type
-            self.api_key = llm_config.api_key
+            import os
+            self.api_key = os.environ.get("OPENAI_API_KEY") or llm_config.api_key
             self.api_version = llm_config.api_version
             self.base_url = llm_config.base_url
+            logger.info(f"LLM Config: model={self.model}, base_url={self.base_url}, api_type={self.api_type}")
 
             # Add token counting related attributes
             self.total_input_tokens = 0
